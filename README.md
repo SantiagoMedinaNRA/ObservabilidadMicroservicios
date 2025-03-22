@@ -28,3 +28,22 @@ El entregable es la presentación y un link del repositorio del tema trabajado.
 
 - Prueba de Concepto (PoC):
     - [x] Configurar un dashboard de Grafana para monitorear un sistema de microservicios.
+
+# Diagrama
+
+```mermaid
+graph TD
+    A[Client] -->|HTTP Requests| B[API Gateway]
+    B -->|Route Requests| C[Invoice Microservice]
+    B -->|Route Requests| D[Customer Microservice]
+    B -->|Route Requests| E[Product Microservice]
+
+    C -->|Validate Customer| D
+    C -->|Validate Products| E
+
+    subgraph Microservices
+        C[Invoice Microservice]
+        D[Customer Microservice]
+        E[Product Microservice]
+    end
+```
