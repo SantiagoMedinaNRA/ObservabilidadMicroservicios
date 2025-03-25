@@ -2,51 +2,39 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/invoices/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 44388
         }
       ],
-      "UpstreamPathTemplate": "/invoices/{everything}",
+      "UpstreamPathTemplate": "/api/invoices/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
     },
     {
       "DownstreamPathTemplate": "/api/customers/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 44303
         }
       ],
-      "UpstreamPathTemplate": "/customers/{everything}",
+      "UpstreamPathTemplate": "/api/customers/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST" ]
     },
     {
       "DownstreamPathTemplate": "/api/products/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 44329
         }
       ],
-      "UpstreamPathTemplate": "/products/{everything}",
+      "UpstreamPathTemplate": "/api/products/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/notifications/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44369
-        }
-      ],
-      "UpstreamPathTemplate": "/notifications/{everything}",
-      "UpstreamHttpMethod": [ "POST" ]
     }
   ],
   "GlobalConfiguration": {
