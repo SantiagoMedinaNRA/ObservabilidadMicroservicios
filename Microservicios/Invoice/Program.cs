@@ -22,17 +22,6 @@ namespace Invoices
       builder.Services.AddScoped<IStorageBroker, StorageBroker>();
       builder.Services.AddTransient<IInvoiceService, InvoiceService>();
 
-      // Register HTTP clients for inter-service communication
-      builder.Services.AddHttpClient<ICustomerBroker, CustomerBroker>(client =>
-      {
-        client.BaseAddress = new Uri("https://localhost:44303"); // Customer Microservice URL
-      });
-
-      builder.Services.AddHttpClient<IProductBroker, ProductBroker>(client =>
-      {
-        client.BaseAddress = new Uri("https://localhost:44329"); // Product Microservice URL
-      });
-
       var app = builder.Build();
 
       // Seed initial data
