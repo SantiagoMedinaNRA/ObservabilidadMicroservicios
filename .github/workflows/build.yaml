@@ -7,7 +7,7 @@ on:
 env:
   DOTNET_VERSION: '9.0.x'  # .NET 9
   DOCKER_IMAGE_NAME: 'leo2706/invoice-microservice'  # Change this
-  HELM_REPO: 'https://github.com/LuisOlayaNRA/microservices-infra.git'  # Your helm charts repo
+  HELM_REPO: 'LuisOlayaNRA/microservices-infra'  # Your helm charts repo
   CHART_PATH: 'invoice-chart'  # Path to your invoice chart in the helm repo
  
 jobs:
