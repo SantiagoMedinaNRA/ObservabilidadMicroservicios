@@ -52,7 +52,7 @@ jobs:
         with:
           repository: ${{ env.HELM_REPO }}
           token: ${{ secrets.HELM_REPO_TOKEN }}
-          path: invoice-chart
+          path: helm-charts
  
       - name: Update Helm Chart
         run: |
