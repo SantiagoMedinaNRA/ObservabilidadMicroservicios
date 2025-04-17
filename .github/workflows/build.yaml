@@ -7,6 +7,8 @@ on:
 env:
   DOTNET_VERSION: '9.0.x'  # .NET 9
   DOCKER_IMAGE_NAME: 'leo2706/invoice-microservice'  # Change this
+  HELM_REPO: 'https://github.com/LuisOlayaNRA/microservices-infra.git'  # Your helm charts repo
+  CHART_PATH: 'invoice-chart'  # Path to your invoice chart in the helm repo
  
 jobs:
   build-and-publish:
@@ -43,3 +45,21 @@ jobs:
           tags: |
             ${{ env.DOCKER_IMAGE_NAME }}:latest
             ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+
+      # --- STAGE 3: Update Helm Chart ---
+      - name: Checkout Helm Charts repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.HELM_REPO }}
+          token: ${{ secrets.HELM_REPO_TOKEN }}
+          path: invoice-chart
+ 
+      - name: Update Helm Chart
+        run: |
+          cd helm-charts/${{ env.CHART_PATH }}
+          sed -i "s|tag:.*|tag: \"latest\"|g" values.yaml
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add values.yaml
+          git commit -m "Update invoice image to latest"
+          git push
