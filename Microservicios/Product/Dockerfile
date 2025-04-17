@@ -4,7 +4,6 @@ WORKDIR /src
 
 # Copy solution and project files
 COPY ["Microservicios/Product/Product.csproj", "Microservicios/Product/"]
-COPY ["Microservicios/Microservicios.sln", "Microservicios/"]
 
 # Restore dependencies
 RUN dotnet restore "Microservicios/Product/Product.csproj"
