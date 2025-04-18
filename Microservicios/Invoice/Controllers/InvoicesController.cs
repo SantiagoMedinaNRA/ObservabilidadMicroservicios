@@ -10,6 +10,13 @@ namespace Invoices.Controllers
   [ApiController]
   public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
   {
+    [HttpGet("health")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult Health()
+    {
+      return Ok("Healthy");
+    }
+
     [HttpGet]
     public async Task<ActionResult<List<Invoice>>> GetAllInvoices()
     {
