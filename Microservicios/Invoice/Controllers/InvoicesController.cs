@@ -11,7 +11,7 @@ namespace Invoices.Controllers
   public class InvoicesController(IInvoiceService invoiceService) : ControllerBase
   {
     [HttpGet("health")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [Produces("text/plain")]
     public IActionResult Health()
     {
       return Ok("Healthy");
