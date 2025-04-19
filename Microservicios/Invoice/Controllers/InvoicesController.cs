@@ -14,7 +14,7 @@ namespace Invoices.Controllers
     [Produces("text/plain")]
     public IActionResult Health()
     {
-      return Ok("Healthy");
+      return Ok("Prueba video");
     }
 
     [HttpGet]

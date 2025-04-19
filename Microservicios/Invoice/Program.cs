@@ -9,44 +9,47 @@ namespace Invoices
   {
     public static void Main(string[] args)
     {
-      var builder = WebApplication.CreateBuilder(args);
-
-      // Add services to the container.
-      builder.Services.AddControllers();
-
-      // Register DbContext with in-memory database
-      builder.Services.AddDbContext<InvoiceDbContext>(options =>
-        options.UseInMemoryDatabase("InvoiceDb"));
-
-      // Register broker and service layers
-      builder.Services.AddScoped<IStorageBroker, StorageBroker>();
-      builder.Services.AddTransient<IInvoiceService, InvoiceService>();
-
-      var app = builder.Build();
-
-      // Seed initial data
-      using (var scope = app.Services.CreateScope())
+      try
       {
-        var dbContext = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
-        dbContext.Database.EnsureCreated(); // Ensure the database is created
-      }
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddControllers();
 
-      // Configure the HTTP request pipeline.
-      if (app.Environment.IsDevelopment())
+        builder.Services.AddDbContext<InvoiceDbContext>(options =>
+            options.UseInMemoryDatabase("InvoiceDb"));
+
+        builder.Services.AddScoped<IStorageBroker, StorageBroker>();
+        builder.Services.AddTransient<IInvoiceService, InvoiceService>();
+
+        var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+          var dbContext = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
+          dbContext.Database.EnsureCreated();
+        }
+
+        if (app.Environment.IsDevelopment())
+        {
+          app.MapOpenApi();
+        }
+
+        if (!app.Environment.IsProduction())
+        {
+          app.UseHttpsRedirection();
+        }
+
+        app.UseAuthorization();
+        app.MapControllers();
+
+        app.Run();
+      }
+      catch (Exception ex)
       {
-        app.MapOpenApi();
+        Console.WriteLine("Fatal error:");
+        Console.WriteLine(ex.ToString());
+        throw;
       }
-
-      if (!app.Environment.IsProduction())
-      {
-        app.UseHttpsRedirection();
-      }
-
-      app.UseAuthorization();
-
-      app.MapControllers();
-
-      app.Run();
     }
+
   }
 }
